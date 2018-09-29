@@ -1,6 +1,5 @@
 #include "usersettings.h"
 
-UserSettings* UserSettings::instance = new UserSettings();
 
 UserSettings::UserSettings()
 {
@@ -29,9 +28,10 @@ void UserSettings::save()
 
 UserSettings *UserSettings::getInstance()
 {
-    if(instance == 0) {
-        instance = new UserSettings();
-    }
+    UserSettings *instance = new UserSettings;
+//    if(instance == 0) {
+//        instance = new UserSettings();
+//    }
     return instance;
 }
 
