@@ -11,7 +11,8 @@ CentralWidget::CentralWidget()
     mainLayout->addWidget(trainingScrollArea);
     mainLayout->addWidget(trainingTabs);
 
-    UserSettings::profile p = userSettings.getProfile(userSettings.indexOfProfile);
+    userSettings = UserSettings::getInstance();
+    UserSettings::profile p = userSettings->getProfile(userSettings->indexOfProfile);
     onProfileChanged(p);
 
     setLayout(mainLayout);

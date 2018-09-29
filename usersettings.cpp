@@ -1,5 +1,7 @@
 #include "usersettings.h"
 
+UserSettings* UserSettings::instance = new UserSettings();
+
 UserSettings::UserSettings()
 {
     filename = "settings.ats";
@@ -23,6 +25,14 @@ void UserSettings::save()
         stream << profiles[i].name << "\t" << profiles[i].folder.absolutePath() << "\t" << profiles[i].activity << endl;
     }
     file.close();
+}
+
+UserSettings *UserSettings::getInstance()
+{
+    if(instance == 0) {
+        instance = new UserSettings();
+    }
+    return instance;
 }
 
 bool UserSettings::addProfile(QString profileName, QString folder, QString activity, QLabel *message)

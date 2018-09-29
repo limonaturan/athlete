@@ -24,7 +24,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setupMenu()
 {
-    userSettings = new UserSettings();
+    userSettings = UserSettings::getInstance();
     connect(userSettings, SIGNAL(profileChanged(UserSettings::profile)), centralWidget, SLOT(onProfileChanged(UserSettings::profile)));
     dialogNew = new UserDialog("NEW", userSettings);
     dialogChoose = new UserDialog("CHOOSE", userSettings);

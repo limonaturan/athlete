@@ -27,7 +27,7 @@ private:
     QHBoxLayout * mainLayout;
     TrainingHeaderScrollArea *trainingScrollArea;
     TrainingTabs *trainingTabs;
-    UserSettings userSettings;
+    UserSettings *userSettings;
     UserSettings::profile profile;
     TrainingManager *trainingManager;
 

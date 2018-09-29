@@ -17,7 +17,7 @@ class UserSettings : public QWidget
 {
     Q_OBJECT
 public:
-    UserSettings();
+    static UserSettings *getInstance();
 
     struct profile {
         QString name;
@@ -47,6 +47,9 @@ signals:
     void profileChanged(UserSettings::profile);
 
 private:
+    UserSettings();
+
+    static UserSettings *instance;
 
     void read();
 

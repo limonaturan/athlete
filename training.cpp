@@ -46,7 +46,7 @@ int Training::getNextID()
 
 QVector<float> Training::getDistancesForStatistics()
 {
-    int numberOfDistances = floor(activity.distance/100.);
+    int numberOfDistances = qFloor(activity.distance/100.);
     QVector<float> distances;
     for(int i=1; i<=numberOfDistances; i++)
         distances.append(i*100);

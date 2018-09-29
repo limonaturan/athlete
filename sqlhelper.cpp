@@ -21,9 +21,6 @@ SqlHelper::SqlHelper()
 
     if(!isDatabaseValid())
         initialize();
-    else {
-        qDebug() << "DB exists.";
-    }
 }
 
 void SqlHelper::initialize()
@@ -33,7 +30,7 @@ void SqlHelper::initialize()
     QSqlQuery query;
     int res = query.exec(
                 "CREATE TABLE THDR ( "
-                "   ID         INTEGER, "
+                "   ID         INTEGER AUTOINCREMENT, "
                 "   FILENAME   TEXT,    "
                 "   DATETIME   TEXT,    "
                 "   DISTANCE   REAL,    "
@@ -53,7 +50,6 @@ void SqlHelper::initialize()
                 "   PRIMARY KEY (ID, DISTANCE))   ");
 
     database.close();
-    // Test how to commit.
 }
 
 bool SqlHelper::isDatabaseValid()

@@ -9,6 +9,7 @@
 #include <QVector>
 #include <QDebug>
 #include "worldrecord.h"
+#include <QtMath>
 
 class Training
 {
