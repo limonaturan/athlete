@@ -10,6 +10,7 @@
 #include <QDebug>
 #include "worldrecord.h"
 #include <QtMath>
+#include "sqlhelper.h"
 
 class Training
 {
@@ -24,6 +25,8 @@ public:
         float speed = 0;
         float heartRate = 0;
         float rating = 0;
+        float efficiency = 0.;
+        QString file = "";
         int id = 0;
         bool isValid = false;
     };
@@ -40,6 +43,7 @@ public:
     };
 
     struct Section {
+        QDateTime time;
         float duration = 0.;
         float distance = 0.;
         float heartRateBpm = 0.;
@@ -80,7 +84,6 @@ private:
 
     QVector<float> getDistancesForStatistics();
     QVector<Section> getBestSections();
-    QVector<Section> readBestSections();
 
 
     static QString statisticsFolder;

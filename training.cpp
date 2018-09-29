@@ -14,7 +14,11 @@ Training::Training(QString filename)
     id = getNextID();
     this->filename = filename;
     activity.isValid = false;
+    QFileInfo ff(filename);
+    header.file = ff.fileName();
+
     readTcxFile(filename);
+
     getBestSections();
 }
 
@@ -56,18 +60,28 @@ QVector<float> Training::getDistancesForStatistics()
 QVector<Training::Section> Training::getBestSections()
 {
     QVector<Section> bestSections;
+    Section bestSection;
+    bool onDB = false;
 
     if(!activity.isValid) // Do not proceed if there is no valid training data available.
         return bestSections;
 
-    bestSections = readBestSections(); // Read persisted stratistics data
-    if(bestSections.size() != 0)
+    // First try to select sections from the DB.
+    QVector<SqlHelper::Section> sqlSections = SqlHelper::getInstance()->selectTrainingSections(header.file);
+    for(int i=0; i<sqlSections.size(); i++) {
+        bestSection.time = sqlSections[i].time;
+        bestSection.distance = sqlSections[i].distance;
+        bestSection.duration = sqlSections[i].duration;
+        bestSection.heartRateBpm = sqlSections[i].heartRateBpm;
+        bestSections.append(bestSection);
+    }
+    if(sqlSections.size() != 0) {
+        onDB = true;
         return bestSections;
+    }
 
     // Do statistics analysis
     QVector<float> distances = getDistancesForStatistics();
-
-    QDateTime a = QDateTime::currentDateTime();
 
     for(int i=0; i<distances.size(); i++) {
         Section s;
@@ -84,12 +98,14 @@ QVector<Training::Section> Training::getBestSections()
                     distanceTemp = activity.laps[m].trackPoints[g].distanceMeters - distanceZero;
                     durationTemp = float(dtZero.time().msecsTo(activity.laps[m].trackPoints[g].time.time()))/1000.;
                     numberOfDataPoints += 1;
+                    heartRateTemp += activity.laps[m].trackPoints[g].heartRateBpm;
                     if(distanceTemp - distances[i] > 0.) {
                         if(numberOfDataPoints > 5) {
                             durationTemp = durationTemp*distances[i]/distanceTemp;
                             if(s.duration == 0 || durationTemp < s.duration) {
                                 s.duration = durationTemp;
-                                s.heartRateBpm = heartRateTemp;
+                                s.heartRateBpm = heartRateTemp/float(numberOfDataPoints);
+                                s.time = dtZero;
                             }
                         }
                         distanceTemp = 0.;
@@ -106,16 +122,19 @@ QVector<Training::Section> Training::getBestSections()
         bestSections.append(s);
     }
 
-    QDateTime b = QDateTime::currentDateTime();
-    qDebug() << "Statistics analysis took " << a.time().msecsTo(b.time()) << " ms.";
+    if(!onDB) {
+        SqlHelper::Section sA;
+        QVector<SqlHelper::Section> sB;
+        for(int i=0; i<bestSections.size(); i++) {
+            sA.time = bestSections[i].time;
+            sA.distance = bestSections[i].distance;
+            sA.duration = bestSections[i].duration;
+            sA.heartRateBpm = bestSections[i].heartRateBpm;
+            sB.append(sA);
+        }
+        SqlHelper::getInstance()->insertTrainingSections(header.file, sB);
+    }
 
-    return bestSections;
-}
-
-QVector<Training::Section> Training::readBestSections()
-{
-    // TODO
-    QVector<Section> bestSections;
     return bestSections;
 }
 
