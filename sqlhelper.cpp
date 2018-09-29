@@ -53,6 +53,7 @@ void SqlHelper::initialize()
                 "   PRIMARY KEY (ID, DISTANCE))   ");
 
     database.close();
+    // Test how to commit.
 }
 
 bool SqlHelper::isDatabaseValid()
