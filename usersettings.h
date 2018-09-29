@@ -10,12 +10,9 @@
 #include <QDir>
 #include <QDebug>
 #include <QDate>
-#include <QObject>
-#include <QWidget>
 
-class UserSettings : public QWidget
+class UserSettings
 {
-    Q_OBJECT
 public:
     static UserSettings *getInstance();
 
@@ -37,14 +34,12 @@ public:
     QVector<QString> getFolders();
 
     profile getProfile(int);
+    profile getCurrentProfile();
     QString getActivity(int);
     QString getFolder(int);
     int getActivityIndex(QString);
 
     void save();
-
-signals:
-    void profileChanged(UserSettings::profile);
 
 private:
     UserSettings();

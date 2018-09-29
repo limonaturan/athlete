@@ -158,6 +158,7 @@ void UserDialog::onComboBoxChanged(int index)
 void UserDialog::onButtonChooseClicked()
 {
     userSettings->chooseProfile(comboBoxProfiles->currentIndex());
+    emit profileChanged();
     close();
 }
 

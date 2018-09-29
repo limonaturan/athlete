@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setupMenu();
 
-    SqlHelper* h = SqlHelper::getInstance();
+    //SqlHelper* h = SqlHelper::getInstance();
 }
 
 MainWindow::~MainWindow()
@@ -25,7 +25,6 @@ MainWindow::~MainWindow()
 void MainWindow::setupMenu()
 {
     userSettings = UserSettings::getInstance();
-    connect(userSettings, SIGNAL(profileChanged(UserSettings::profile)), centralWidget, SLOT(onProfileChanged(UserSettings::profile)));
     dialogNew = new UserDialog("NEW", userSettings);
     dialogChoose = new UserDialog("CHOOSE", userSettings);
     dialogEdit = new UserDialog("EDIT", userSettings);
@@ -38,4 +37,6 @@ void MainWindow::setupMenu()
     menuProfile->addAction(tr("&Choose"), dialogChoose, SLOT(showDialog()));
     menuProfile->addAction(tr("&Edit"), dialogEdit, SLOT(showDialog()));
     menuProfile->addAction(tr("&Delete"), dialogDelete, SLOT(showDialog()));
+
+    connect(dialogChoose, SIGNAL(profileChanged()), centralWidget, SLOT(onProfileChanged()));
 }

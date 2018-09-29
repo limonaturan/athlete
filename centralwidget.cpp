@@ -11,28 +11,21 @@ CentralWidget::CentralWidget()
     mainLayout->addWidget(trainingScrollArea);
     mainLayout->addWidget(trainingTabs);
 
-    userSettings = UserSettings::getInstance();
-    UserSettings::profile p = userSettings->getProfile(userSettings->indexOfProfile);
-    onProfileChanged(p);
+    onProfileChanged();
 
     setLayout(mainLayout);
 }
 
-void CentralWidget::updateWidget()
+void CentralWidget::onProfileChanged()
 {
+    // TrainingManager must read the trainings related to the chosen profile.
+    trainingManager->setProfile(UserSettings::getInstance()->getCurrentProfile());
 
-}
-
-void CentralWidget::onProfileChanged(UserSettings::profile profile)
-{
-    this->profile = profile;
-    trainingManager->setProfile(profile);
-    updateCentralWidget();
-
+    // TrainingHeadersScrollArea must be updated.
+    trainingScrollArea->setTrainingHeaderTiles(trainingManager->getHeaders());
 }
 
 void CentralWidget::updateCentralWidget()
 {
-    QVector<Training::Header> headers = trainingManager->getHeaders();
-    trainingScrollArea->setTrainingHeaderTiles(headers);
+
 }

@@ -1,13 +1,12 @@
 #include "usersettings.h"
 
+UserSettings* UserSettings::instance = 0;
 
 UserSettings::UserSettings()
 {
     filename = "settings.ats";
     indexOfProfile = 0;
     read();
-    if(profiles.size() > 0)
-        emit profileChanged(profiles[indexOfProfile]);
 }
 
 void UserSettings::save()
@@ -28,10 +27,9 @@ void UserSettings::save()
 
 UserSettings *UserSettings::getInstance()
 {
-    UserSettings *instance = new UserSettings;
-//    if(instance == 0) {
-//        instance = new UserSettings();
-//    }
+    if(instance == 0) {
+        instance = new UserSettings();
+    }
     return instance;
 }
 
@@ -76,7 +74,6 @@ void UserSettings::chooseProfile(int index)
 {
     indexOfProfile = index;
     save();
-    emit profileChanged(profiles[index]);
 }
 
 bool UserSettings::editProfile(int index, UserSettings::profile p, QLabel *message)
@@ -159,6 +156,11 @@ QVector<QString> UserSettings::getFolders()
 UserSettings::profile UserSettings::getProfile(int i)
 {
     return profiles[i];
+}
+
+UserSettings::profile UserSettings::getCurrentProfile()
+{
+    return profiles[indexOfProfile];
 }
 
 QString UserSettings::getActivity(int i)

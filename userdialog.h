@@ -26,7 +26,8 @@ public:
     UserDialog(UserSettings* userSettings);
     UserDialog(QString mode, UserSettings* userSettings);
 
-
+signals:
+    void profileChanged();
 
 public slots:
     void showDialog();

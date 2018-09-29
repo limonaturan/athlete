@@ -13,14 +13,22 @@ SqlHelper* SqlHelper::getInstance()
 
 SqlHelper::SqlHelper()
 {
+    UserSettings *userSettings = UserSettings::getInstance();
+    UserSettings::profile p = userSettings->getProfile(userSettings->indexOfProfile);
+
+    dbFile = p.folder.absolutePath() + QDir::separator() + "training.db";
+
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setHostName("host");
-    database.setDatabaseName("training.db");
+    database.setDatabaseName(dbFile);
     database.setUserName("athlete");
     database.setPassword("password");
 
-    if(!isDatabaseValid())
+    if(!isDatabaseValid()) {
+        qDebug() << "SqlHelper: Initialize database.";
         initialize();
+    }
+
 }
 
 void SqlHelper::initialize()
@@ -54,7 +62,7 @@ void SqlHelper::initialize()
 
 bool SqlHelper::isDatabaseValid()
 {
-    QFileInfo f("training.db");
+    QFileInfo f(dbFile);
     if(!(f.exists() && f.isFile()))
         return false;
 
@@ -64,7 +72,8 @@ bool SqlHelper::isDatabaseValid()
     QVector<QString> expectedTableNames = {"THDR", "TSTT"};
     QVector<QString> actualTableNames;
     QSqlQuery query;
-    int res = query.exec("SELECT * FROM SQLITE_MASTER");
+    if(!query.exec("SELECT * FROM SQLITE_MASTER"))
+        return false;
 
     while(query.next()) {
         actualTableNames.append(query.value(1).toString());

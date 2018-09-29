@@ -23,11 +23,16 @@ QVector<Training::Header> TrainingManager::getHeaders()
 
 void TrainingManager::readAll()
 {
+    trainings.clear();
     QDirIterator it(profile.folder.absolutePath(), QDirIterator::Subdirectories);
     while (it.hasNext()) {
         QString filename = it.next();
-        if(QFileInfo(filename).isFile())
-            trainings.append(Training(filename));
+        if(QFileInfo(filename).isFile()) {
+            Training t = Training(filename);
+            if(t.getHeader().isValid)
+                trainings.append(t);
+        }
+
     }
     trainingsChanged();
 }

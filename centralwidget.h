@@ -18,10 +18,8 @@ class CentralWidget : public QWidget
 public:
     CentralWidget();
 
-    void updateWidget();
-
 public slots:
-    void onProfileChanged(UserSettings::profile);
+    void onProfileChanged();
 
 private:
     QHBoxLayout * mainLayout;

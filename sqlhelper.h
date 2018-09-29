@@ -7,6 +7,8 @@
 #include <QVector>
 #include <QtCore/QCoreApplication>
 #include <QFileInfo>
+#include "usersettings.h"
+#include <QDir>
 
 class SqlHelper
 {
@@ -22,6 +24,8 @@ private:
 
     bool isDatabaseValid();
     void initialize();
+
+    QString dbFile;
 
     QSqlDatabase database;
 
