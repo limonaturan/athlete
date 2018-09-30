@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <QVBoxLayout>
 #include <QGridLayout>
+#include "plotdata.h"
 
 
 class PlotSpeedDistance : public QCustomPlot

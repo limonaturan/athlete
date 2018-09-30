@@ -23,6 +23,7 @@ void CentralWidget::onProfileChanged()
 
     // TrainingHeadersScrollArea must be updated.
     trainingScrollArea->setTrainingHeaderTiles(trainingManager->getHeaders());
+    trainingTabs->updateTabs();
 }
 
 void CentralWidget::updateCentralWidget()

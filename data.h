@@ -1,22 +1,17 @@
-#ifndef TRAINING_H
-#define TRAINING_H
+#ifndef DATA_H
+#define DATA_H
 
-#include <QString>
-#include <QFile>
-#include "pugi/pugixml.hpp"
-#include "pugi/pugiconfig.hpp"
-#include <QDateTime>
 #include <QVector>
-#include <QDebug>
-#include "worldrecord.h"
-#include <QtMath>
-#include "sqlhelper.h"
+#include <QString>
+#include <QDateTime>
 
-class Training
+class Data
 {
 public:
-    Training();
-    Training(QString filename);
+    Data();
+
+    QVector<float> x;
+    QVector<float> y;
 
     struct Header {
         QDateTime dateTime;
@@ -72,37 +67,6 @@ public:
         bool isValid = false;
         QVector<Lap> laps;
     };
-
-    Header getHeader();
-    QVector<Section> getBestSections();
-
-
-private:
-    void defineWorldRecords();
-    QVector<WorldRecord> wrRunning;
-    static int getNextID();
-    static int id;
-
-    QVector<float> getDistancesForStatistics();
-
-
-    static QString statisticsFolder;
-
-    Activity readTcxFile(QString);
-    pugi::xml_parse_result trainingData;
-    QString filename;
-
-    float getDistance();
-    float getDuration();
-    QDateTime getDateTime();
-    float getHeartRate();
-    float getSpeed();
-    float getCadence();
-
-    Header header;
-
-    Activity getActivity();
-    Activity activity;
 };
 
-#endif // TRAINING_H
+#endif // DATA_H

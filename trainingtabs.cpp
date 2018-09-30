@@ -11,6 +11,11 @@ TrainingTabs::TrainingTabs(TrainingManager *tm)
 
 }
 
+void TrainingTabs::updateTabs()
+{
+    plotSpeedDistance->updateGraph();
+}
+
 void TrainingTabs::setActivities(QVector<Training::Activity>)
 {
 

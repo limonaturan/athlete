@@ -27,7 +27,9 @@ SOURCES += main.cpp\
     trainingmanager.cpp \
     plotspeeddistance.cpp \
     worldrecord.cpp \
-    sqlhelper.cpp
+    sqlhelper.cpp \
+    plotdata.cpp \
+    data.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -44,6 +46,8 @@ HEADERS  += mainwindow.h \
     trainingmanager.h \
     plotspeeddistance.h \
     worldrecord.h \
-    sqlhelper.h
+    sqlhelper.h \
+    plotdata.h \
+    data.h
 
 FORMS    += mainwindow.ui

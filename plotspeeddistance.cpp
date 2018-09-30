@@ -20,15 +20,25 @@ void PlotSpeedDistance::updateGraph()
     //double xMin = *std::min_element(x.constBegin(), x.constEnd())*0.9;
     double xMax = *std::max_element(x.constBegin(), x.constEnd())*1.1;
     //double yMin = *std::min_element(y.constBegin(), y.constEnd())*0.9;
-    double yMax = *std::max_element(y.constBegin(), y.constEnd())*1.1;
 
-    if(this->graphCount() == 0)
+
+    if(this->graphCount() == 0) {
         this->addGraph();
+        this->addGraph();
+    }
     this->graph(0)->clearData();
     this->graph(0)->setData(x,y);
 
-    this->graph()->setLineStyle(QCPGraph::lsNone);
-    this->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
+    PlotData fastestData = TrainingManager::getInstance()->getSpeedDistanceFastestSectionsAllTime();
+    this->graph(1)->clearData();
+    this->graph(1)->setData(fastestData.x,fastestData.y);
+    double yMax = *std::max_element(fastestData.y.constBegin(), fastestData.y.constEnd())*1.1;
+
+    this->graph(0)->setLineStyle(QCPGraph::lsNone);
+    this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
+
+    this->graph(1)->setLineStyle(QCPGraph::lsLine);
+    //this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
 
     this->xAxis->setLabel("Distance (km)");
     this->yAxis->setLabel("Speed (km/h)");

@@ -14,6 +14,7 @@ class TrainingTabs : public QTabWidget
     Q_OBJECT
 public:
     TrainingTabs(TrainingManager*);
+    void updateTabs();
 
     void setActivities(QVector<Training::Activity>);
 

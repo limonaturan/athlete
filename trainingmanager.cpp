@@ -29,6 +29,25 @@ QVector<Training::Header> TrainingManager::getHeaders()
     return headers;
 }
 
+PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()
+{
+    PlotData data;
+    for(int i=0; i<trainings.size(); i++) {
+        QVector<Training::Section> bestSections = trainings[i].getBestSections();
+        for(int j=0; j<bestSections.size(); j++) {
+            float speed = bestSections[j].distance/bestSections[j].duration*3.6;
+            if(data.x.size() > j && data.y[j] < speed) {
+                data.y[j] = speed;
+            }
+            else if(data.x.size() <= j) {
+                data.y.append(speed);
+                data.x.append(bestSections[j].distance/1000.);
+            }
+        }
+    }
+    return data;
+}
+
 void TrainingManager::readAll()
 {
     trainings.clear();

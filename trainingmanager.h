@@ -9,6 +9,8 @@
 #include <QStringList>
 #include <QDebug>
 #include <QFileInfo>
+#include "plotdata.h"
+#include "data.h"
 
 class TrainingManager
 {
@@ -19,6 +21,8 @@ public:
     void setProfile(UserSettings::profile);
 
     QVector<Training::Header> getHeaders();
+
+    PlotData getSpeedDistanceFastestSectionsAllTime();
 
 
 private:
