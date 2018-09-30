@@ -41,8 +41,13 @@ void PlotSpeedDistance::updateGraph()
 
     this->graph(0)->setLineStyle(QCPGraph::lsNone);
     this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
+    this->graph(0)->setPen(QPen(QColor(255, 40, 110, 255)));
 
+    QPen penPersonalBest;
+    penPersonalBest.setWidthF(4);
+    penPersonalBest.setColor(QColor(255, 20, 70, 100));
     this->graph(1)->setLineStyle(QCPGraph::lsLine);
+    this->graph(1)->setPen(penPersonalBest);
     //this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
 
     this->xAxis->setLabel("Distance (km)");

@@ -11,6 +11,8 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include "plotdata.h"
+#include <QColor>
+#include <QPen>
 
 
 class PlotSpeedDistance : public QCustomPlot
