@@ -1,19 +1,17 @@
 #include "trainingtabs.h"
 
-TrainingTabs::TrainingTabs(TrainingManager *tm)
+TrainingTabs::TrainingTabs()
 {
-    trainingManager = tm;
+    tabSpeed = new TabSpeed;
+    tabSpeed->updateGraph();
 
-    plotSpeedDistance = new PlotSpeedDistance(trainingManager);
-    plotSpeedDistance->updateGraph();
-
-    addTab(plotSpeedDistance, tr("Speed"));
+    addTab(tabSpeed, tr("Speed"));
 
 }
 
 void TrainingTabs::updateTabs()
 {
-    plotSpeedDistance->updateGraph();
+    tabSpeed->updateGraph();
 }
 
 void TrainingTabs::setActivities(QVector<Training::Activity>)

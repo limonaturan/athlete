@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     worldrecord.cpp \
     sqlhelper.cpp \
     plotdata.cpp \
-    data.cpp
+    data.cpp \
+    tabspeed.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -48,6 +49,7 @@ HEADERS  += mainwindow.h \
     worldrecord.h \
     sqlhelper.h \
     plotdata.h \
-    data.h
+    data.h \
+    tabspeed.h
 
 FORMS    += mainwindow.ui

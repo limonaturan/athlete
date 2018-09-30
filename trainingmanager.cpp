@@ -45,6 +45,13 @@ PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()
             }
         }
     }
+    float speed = 0.;
+    for(int i=data.x.size()-1; i>=0; i--) {
+        if(data.y[i] > speed)
+            speed = data.y[i];
+        data.y[i] = speed;
+    }
+
     return data;
 }
 

@@ -17,9 +17,11 @@ class PlotSpeedDistance : public QCustomPlot
 {
     Q_OBJECT
 public:
-    PlotSpeedDistance(TrainingManager*);
+    PlotSpeedDistance();
 
     void updateGraph();
+    void toggleWorldRecords(bool);
+    void togglePersonalBest(bool);
 
 private slots:
     void onTrainingsChanged();
@@ -30,6 +32,8 @@ private:
     QCustomPlot *plot;
     QVBoxLayout *mainLayout;
     QGridLayout *settinsLayout;
+    bool worldRecordsActive = 0;
+    bool personalBestActive = 0;
 };
 
 #endif // PLOTSPEEDDISTANCE_H

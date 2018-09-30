@@ -8,19 +8,20 @@
 #include <QString>
 #include "plotspeeddistance.h"
 #include "trainingmanager.h"
+#include "tabspeed.h"
 
 class TrainingTabs : public QTabWidget
 {
     Q_OBJECT
 public:
-    TrainingTabs(TrainingManager*);
+    TrainingTabs();
     void updateTabs();
 
     void setActivities(QVector<Training::Activity>);
 
 private:
-    TrainingManager *trainingManager;
     PlotSpeedDistance *plotSpeedDistance;
+    TabSpeed *tabSpeed;
 
 };
 

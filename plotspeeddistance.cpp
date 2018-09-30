@@ -1,8 +1,8 @@
 #include "plotspeeddistance.h"
 
-PlotSpeedDistance::PlotSpeedDistance(TrainingManager *tm)
+PlotSpeedDistance::PlotSpeedDistance()
 {
-    trainingManager = tm;
+    trainingManager = TrainingManager::getInstance();
     //connect(trainingManager, SIGNAL(trainingsChanged()), this, SLOT(onTrainingsChanged()));
 }
 
@@ -16,10 +16,9 @@ void PlotSpeedDistance::updateGraph()
         x.append(headers[i].distance/1000.);
         y.append(headers[i].speed*3.6);
     }
-
-    //double xMin = *std::min_element(x.constBegin(), x.constEnd())*0.9;
+    double yMaxPersonalBest, yMax = 0.;
     double xMax = *std::max_element(x.constBegin(), x.constEnd())*1.1;
-    //double yMin = *std::min_element(y.constBegin(), y.constEnd())*0.9;
+    yMax = *std::max_element(y.constBegin(), y.constEnd())*1.1;
 
 
     if(this->graphCount() == 0) {
@@ -27,12 +26,18 @@ void PlotSpeedDistance::updateGraph()
         this->addGraph();
     }
     this->graph(0)->clearData();
+    this->graph(1)->clearData();
+
     this->graph(0)->setData(x,y);
 
-    PlotData fastestData = TrainingManager::getInstance()->getSpeedDistanceFastestSectionsAllTime();
-    this->graph(1)->clearData();
-    this->graph(1)->setData(fastestData.x,fastestData.y);
-    double yMax = *std::max_element(fastestData.y.constBegin(), fastestData.y.constEnd())*1.1;
+    if(personalBestActive) {
+        PlotData fastestData = TrainingManager::getInstance()->getSpeedDistanceFastestSectionsAllTime();
+        this->graph(1)->setData(fastestData.x,fastestData.y);
+        yMaxPersonalBest = *std::max_element(fastestData.y.constBegin(), fastestData.y.constEnd())*1.1;
+    }
+
+    if(yMaxPersonalBest > yMax)
+        yMax = yMaxPersonalBest;
 
     this->graph(0)->setLineStyle(QCPGraph::lsNone);
     this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
@@ -45,6 +50,17 @@ void PlotSpeedDistance::updateGraph()
     this->xAxis->setRange(0, xMax);
     this->yAxis->setRange(0, yMax);
     this->replot();
+}
+
+void PlotSpeedDistance::toggleWorldRecords(bool)
+{
+
+}
+
+void PlotSpeedDistance::togglePersonalBest(bool active)
+{
+    personalBestActive = active;
+    updateGraph();
 }
 
 void PlotSpeedDistance::onTrainingsChanged()

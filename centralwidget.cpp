@@ -6,7 +6,7 @@ CentralWidget::CentralWidget()
     trainingScrollArea = new TrainingHeaderScrollArea;
     trainingManager = TrainingManager::getInstance();
 
-    trainingTabs = new TrainingTabs(trainingManager);
+    trainingTabs = new TrainingTabs();
 
     mainLayout->addWidget(trainingScrollArea);
     mainLayout->addWidget(trainingTabs);
