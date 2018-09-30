@@ -3,7 +3,7 @@
 PlotSpeedDistance::PlotSpeedDistance(TrainingManager *tm)
 {
     trainingManager = tm;
-    connect(trainingManager, SIGNAL(trainingsChanged()), this, SLOT(onTrainingsChanged()));
+    //connect(trainingManager, SIGNAL(trainingsChanged()), this, SLOT(onTrainingsChanged()));
 }
 
 void PlotSpeedDistance::updateGraph()

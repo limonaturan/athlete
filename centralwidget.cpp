@@ -4,7 +4,7 @@ CentralWidget::CentralWidget()
 {
     mainLayout = new QHBoxLayout;
     trainingScrollArea = new TrainingHeaderScrollArea;
-    trainingManager = new TrainingManager;
+    trainingManager = TrainingManager::getInstance();
 
     trainingTabs = new TrainingTabs(trainingManager);
 

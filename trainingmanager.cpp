@@ -1,5 +1,13 @@
 #include "trainingmanager.h"
 
+TrainingManager* TrainingManager::instance = 0;
+
+TrainingManager* TrainingManager::getInstance()
+{
+    if(instance == 0)
+        instance = new TrainingManager();
+    return instance;
+}
 
 TrainingManager::TrainingManager()
 {
@@ -34,5 +42,4 @@ void TrainingManager::readAll()
         }
 
     }
-    trainingsChanged();
 }
