@@ -1,6 +1,8 @@
 #ifndef WORLDRECORD_H
 #define WORLDRECORD_H
 
+#include "usersettings.h"
+#include <QVector>
 
 class WorldRecord
 {

@@ -227,16 +227,8 @@ Training::Activity Training::readTcxFile(QString filename)
 
 void Training::defineWorldRecords()
 {
-    wrRunning = {
-        WorldRecord(   100.,      9.58),
-        WorldRecord(   200.,     19.19),
-        WorldRecord(   400.,     43.03),
-        WorldRecord(   800.,    100.91),
-        WorldRecord(  1500.,    206.00),
-        WorldRecord(  5000.,    757.35),
-        WorldRecord( 10000.,   1577.53),
-        WorldRecord( 42195.,   7299.00)
-    };
+    WorldRecords wr = WorldRecords();
+    wrRunning = wr.getRecords();
 }
 
 

@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     sqlhelper.cpp \
     plotdata.cpp \
     data.cpp \
-    tabspeed.cpp
+    tabspeed.cpp \
+    worldrecords.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -50,6 +51,7 @@ HEADERS  += mainwindow.h \
     sqlhelper.h \
     plotdata.h \
     data.h \
-    tabspeed.h
+    tabspeed.h \
+    worldrecords.h
 
 FORMS    += mainwindow.ui

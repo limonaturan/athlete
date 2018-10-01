@@ -19,6 +19,7 @@ TabSpeed::TabSpeed()
     this->setLayout(mainLayout);
 
     connect(boxPersonalRecords, SIGNAL(released()), this, SLOT(onCheckPersonalBest()));
+    connect(boxWorldRecords, SIGNAL(released()), this, SLOT(onCheckWorldRecords()));
 }
 
 void TabSpeed::updateGraph()
@@ -28,7 +29,7 @@ void TabSpeed::updateGraph()
 
 void TabSpeed::onCheckWorldRecords()
 {
-
+    plotSpeedDistance->toggleWorldRecords(boxWorldRecords->checkState());
 }
 
 void TabSpeed::onCheckPersonalBest()

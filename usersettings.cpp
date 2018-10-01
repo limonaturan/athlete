@@ -1,6 +1,9 @@
 #include "usersettings.h"
 
 UserSettings* UserSettings::instance = 0;
+const QString UserSettings::Running = QString("Running");
+const QString UserSettings::Swimming = QString("Swimming");
+const QString UserSettings::Riding = QString("Riding");
 
 UserSettings::UserSettings()
 {

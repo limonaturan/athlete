@@ -11,6 +11,7 @@
 #include "worldrecord.h"
 #include <QtMath>
 #include "sqlhelper.h"
+#include "worldrecords.h"
 
 class Training
 {

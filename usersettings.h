@@ -23,6 +23,10 @@ public:
         QDate birthday;
     };
 
+    static const QString Running;
+    static const QString Swimming;
+    static const QString Riding;
+
     bool addProfile(QString profile, QString folder, QString activity, QLabel *message);
     void chooseProfile(int index);
     bool editProfile(int index, profile p, QLabel *message);

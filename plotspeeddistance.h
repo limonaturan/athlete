@@ -13,6 +13,7 @@
 #include "plotdata.h"
 #include <QColor>
 #include <QPen>
+#include "worldrecords.h"
 
 
 class PlotSpeedDistance : public QCustomPlot
@@ -36,6 +37,7 @@ private:
     QGridLayout *settinsLayout;
     bool worldRecordsActive = 0;
     bool personalBestActive = 0;
+    WorldRecords wr;
 };
 
 #endif // PLOTSPEEDDISTANCE_H
