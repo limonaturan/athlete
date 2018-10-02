@@ -76,6 +76,11 @@ public:
 
     Header getHeader();
     QVector<Section> getBestSections();
+    bool isActive();
+    bool isChecked();
+
+    void setActive(bool);
+    void setChecked(bool);
 
 
 private:
@@ -83,6 +88,8 @@ private:
     QVector<WorldRecord> wrRunning;
     static int getNextID();
     static int id;
+    bool active = false;
+    bool checked = false;
 
     QVector<float> getDistancesForStatistics();
 
@@ -104,6 +111,7 @@ private:
 
     Activity getActivity();
     Activity activity;
+
 };
 
 #endif // TRAINING_H

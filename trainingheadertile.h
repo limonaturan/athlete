@@ -15,6 +15,9 @@
 #include <QStyle>
 #include <QPalette>
 #include <QFrame>
+#include <QMouseEvent>
+#include <QPoint>
+#include <trainingmanager.h>
 
 class TrainingHeaderTile : public QFrame
 {
@@ -24,8 +27,18 @@ public:
     TrainingHeaderTile();
     TrainingHeaderTile(Training::Header);
     void setData(Training::Header);
+    void setActive(bool);
 
+signals:
+    void tileClicked();
+    void activeTileChanged();
 
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+private slots:
+    void onTileClicked();
 
 private:
     Training::Header header;
@@ -50,6 +63,14 @@ private:
     QFont fontName;
     QFont fontValue;
     QFont fontTitle;
+
+    QLabel *line;
+
+    bool scribbling;
+
+    bool isChecked;
+    bool isActive;
+    static TrainingHeaderTile *activeInstance;
 
     //void setup();
 };

@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     setCentralWidget(centralWidget);
 
     setWindowTitle(QString("Athlet"));
-    resize(1200,900);
+    resize(1500,900);
 
     setupMenu();
 

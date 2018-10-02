@@ -1,10 +1,10 @@
 #include "training.h"
 
 QString Training::statisticsFolder = "data";
+int Training::id = -1;
 
 Training::Training()
 {
-
     defineWorldRecords();
 }
 
@@ -18,6 +18,7 @@ Training::Training(QString filename)
     header.file = ff.fileName();
 
     readTcxFile(filename);
+    header.id = id;
 
     getBestSections();
 }
@@ -39,8 +40,6 @@ Training::Header Training::getHeader()
 
     return header;
 }
-
-int Training::id = 0;
 
 int Training::getNextID()
 {
@@ -136,6 +135,26 @@ QVector<Training::Section> Training::getBestSections()
     }
 
     return bestSections;
+}
+
+bool Training::isActive()
+{
+    return active;
+}
+
+bool Training::isChecked()
+{
+    return checked;
+}
+
+void Training::setActive(bool c)
+{
+    checked = c;
+}
+
+void Training::setChecked(bool a)
+{
+    active = a;
 }
 
 Training::Activity Training::readTcxFile(QString filename)

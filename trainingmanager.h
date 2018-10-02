@@ -24,6 +24,8 @@ public:
 
     PlotData getSpeedDistanceFastestSectionsAllTime();
 
+    void setTrainingActive(int id, bool active);
+    void setTrainingChecked(int id, bool checked);
 
 private:
     QVector<Training> trainings;

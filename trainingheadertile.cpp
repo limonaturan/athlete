@@ -1,5 +1,7 @@
 #include "trainingheadertile.h"
 
+TrainingHeaderTile *TrainingHeaderTile::activeInstance = 0;
+
 TrainingHeaderTile::TrainingHeaderTile()
 {
     this->initialize();
@@ -45,12 +47,60 @@ void TrainingHeaderTile::setData(Training::Header data)
 
 }
 
+void TrainingHeaderTile::setActive(bool active)
+{
+    if(!active)
+        line->setStyleSheet("background-color: rgb(114, 194, 235);");
+    else
+        line->setStyleSheet("background-color: rgb(40, 240, 120);");
+}
+
+void TrainingHeaderTile::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton) {
+        scribbling = true;
+    }
+}
+
+void TrainingHeaderTile::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton && scribbling) {
+        scribbling = false;
+
+        emit tileClicked();
+
+        if(isChecked) {
+            if(activeInstance == this) {
+                isChecked = false;
+                this->setActive(false);
+                line->setVisible(false);
+            }
+            else {
+                activeInstance->setActive(false);
+                activeInstance = this;
+                this->setActive(true);
+            }
+        }
+        else {
+            isChecked = true;
+            if(activeInstance) {
+                activeInstance->setActive(false);
+            }
+            activeInstance = this;
+            this->setActive(true);
+            line->setVisible(true);
+        }
+    }
+}
+
+void TrainingHeaderTile::onTileClicked()
+{
+
+}
+
 void TrainingHeaderTile::initialize()
 {
-    //setFrameStyle(QFrame::Panel | QFrame::Raised);
-    //setLineWidth(3);
-    //setMidLineWidth(2);
-
+    connect(this, SIGNAL(tileClicked()), this, SLOT(onTileClicked()));
     fontTitle.setBold(false);
     fontTitle.setPointSize(12);
 
@@ -102,4 +152,14 @@ void TrainingHeaderTile::initialize()
     labelSpeed->setGeometry(220,35,400,50);
     labelRating->setGeometry(110,80,400,50);
     labelEfficiency->setGeometry(220,80,400,50);
+
+    line = new QLabel(this);
+    line->setVisible(false);
+    line->setStyleSheet("background-color: rgb(114, 194, 235);"); // rgb(114, 194, 235)
+    line->setGeometry(0,0,100,400);
+    line->setFixedWidth(4);
+    line->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
+
+    isChecked = false;
+    isActive = false;
 }

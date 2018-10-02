@@ -55,6 +55,17 @@ PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()
     return data;
 }
 
+void TrainingManager::setTrainingActive(int id, bool active)
+{
+    trainings[id].setActive(active);
+    //TrainingManager::getInstance()->setTrainingActive(id, active);
+}
+
+void TrainingManager::setTrainingChecked(int id, bool checked)
+{
+    trainings[id].setChecked(checked);
+}
+
 void TrainingManager::readAll()
 {
     trainings.clear();
