@@ -22,13 +22,14 @@ Q_OBJECT
 
 public:
     TrainingHeaderTile();
-    //TrainingHeaderTile(Training::Header);
+    TrainingHeaderTile(Training::Header);
     void setData(Training::Header);
 
 
 
 private:
     Training::Header header;
+    void initialize();
 
     QLabel *labelTitle;
     QLabel *labelDistanceName;

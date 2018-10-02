@@ -2,10 +2,54 @@
 
 TrainingHeaderTile::TrainingHeaderTile()
 {
+    this->initialize();
+}
 
-    setFrameStyle(QFrame::Panel | QFrame::Raised);
-    setLineWidth(3);
-    setMidLineWidth(2);
+TrainingHeaderTile::TrainingHeaderTile(Training::Header header)
+{
+    this->initialize();
+    setData(header);
+}
+
+void TrainingHeaderTile::setData(Training::Header data)
+{
+    header = data;
+    QFont font;
+    font.setWeight(QFont::Bold);
+    font.setPointSize(12);
+
+    int h = 3600;
+    int m = 60;
+
+    int hour = header.duration/h;
+    int second = int(header.duration) % h;
+    int minute = second/m;
+    second = second % m;
+    QString sHour = QString("%1").arg(hour, 2, 10, QChar('0'));
+    QString sMinute = QString("%1").arg(minute, 2, 10, QChar('0'));
+    QString sSecond = QString("%1").arg(second, 2, 10, QChar('0'));
+
+    QString sDuration = sHour + ":" + sMinute + ":" + sSecond;
+
+    labelDate->setText(header.dateTime.toString("dd.MM.yyyy - HH:mm"));
+    labelDistance->setText(QString::number(header.distance/1000., 'f', 2) + " km");
+    labelDuration->setText(sDuration);
+    labelHeartRate->setText(QString::number(header.heartRate, 'f', 2) + " bpm");
+    labelSpeed->setText(QString::number(header.speed*3.6, 'f', 2) + " km/h");
+    labelRating->setText(QString::number(header.rating, 'f', 2) + " %");
+    labelEfficiency->setText(QString::number(header.rating*header.speed/header.heartRate*10, 'f', 2));
+
+    labelDate->setFont(font);
+    labelDate->setFixedHeight(19);
+    labelDate->setFixedWidth(280);
+
+}
+
+void TrainingHeaderTile::initialize()
+{
+    //setFrameStyle(QFrame::Panel | QFrame::Raised);
+    //setLineWidth(3);
+    //setMidLineWidth(2);
 
     fontTitle.setBold(false);
     fontTitle.setPointSize(12);
@@ -58,49 +102,4 @@ TrainingHeaderTile::TrainingHeaderTile()
     labelSpeed->setGeometry(220,35,400,50);
     labelRating->setGeometry(110,80,400,50);
     labelEfficiency->setGeometry(220,80,400,50);
-
-}
-
-/*
-TrainingHeaderTile::TrainingHeaderTile(Training::Header data)
-{
-    header = data;
-    setup();
-    show();
-}
-*/
-
-
-void TrainingHeaderTile::setData(Training::Header data)
-{
-    header = data;
-    QFont font;
-    font.setWeight(QFont::Bold);
-    font.setPointSize(12);
-
-    int h = 3600;
-    int m = 60;
-
-    int hour = header.duration/h;
-    int second = int(header.duration) % h;
-    int minute = second/m;
-    second = second % m;
-    QString sHour = QString("%1").arg(hour, 2, 10, QChar('0'));
-    QString sMinute = QString("%1").arg(minute, 2, 10, QChar('0'));
-    QString sSecond = QString("%1").arg(second, 2, 10, QChar('0'));
-
-    QString sDuration = sHour + ":" + sMinute + ":" + sSecond;
-
-    labelDate->setText(header.dateTime.toString("dd.MM.yyyy - HH:mm"));
-    labelDistance->setText(QString::number(header.distance/1000., 'f', 2) + " km");
-    labelDuration->setText(sDuration);
-    labelHeartRate->setText(QString::number(header.heartRate, 'f', 2) + " bpm");
-    labelSpeed->setText(QString::number(header.speed*3.6, 'f', 2) + " km/h");
-    labelRating->setText(QString::number(header.rating, 'f', 2) + " %");
-    labelEfficiency->setText(QString::number(header.rating*header.speed/header.heartRate*10, 'f', 2));
-
-    labelDate->setFont(font);
-    labelDate->setFixedHeight(19);
-    labelDate->setFixedWidth(280);
-
 }

@@ -9,7 +9,7 @@ TrainingHeaderScrollArea::TrainingHeaderScrollArea()
     setPalette(palette);
 
     setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-    setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+    //setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
     setWidget(trainingHeadersWidget);
     this->resize(360,800);
@@ -18,7 +18,7 @@ TrainingHeaderScrollArea::TrainingHeaderScrollArea()
 
 void TrainingHeaderScrollArea::setTrainingHeaderTiles(QVector<Training::Header> headers)
 {
-    trainingHeadersWidget->setTiles(headers);
+    trainingHeadersWidget->setTiles();
     this->resize(360,800);
     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 }

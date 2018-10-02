@@ -5,11 +5,13 @@
 #include <QVector>
 
 #include "trainingheadertile.h"
+#include "trainingmanager.h"
 #include "training.h"
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDialog>
 #include <algorithm>
+#include <QFrame>
 
 bool compare(Training::Header, Training::Header);
 
@@ -21,11 +23,12 @@ public:
     TrainingHeadersWidget();
 
     //void addTiles(QVector<TrainingHeaderTile>);
-    void setTiles(QVector<Training::Header>);
+    void setTiles();
     void addTile(TrainingHeaderTile*);
 
 private:
     void updateWidget();
+    void addHorizontalLine();
     int tileHeight;
     int tileWidth;
 

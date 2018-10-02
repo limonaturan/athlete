@@ -9,10 +9,14 @@ TrainingHeadersWidget::TrainingHeadersWidget()
     setLayout(layout);
 }
 
-void TrainingHeadersWidget::setTiles(QVector<Training::Header> headers)
+void TrainingHeadersWidget::setTiles()
 {
+    QVector<Training::Header> headers = TrainingManager::getInstance()->getHeaders();
+
+    // Sort by time
     std::sort(headers.begin(), headers.end(), compare);
 
+    // Remove all old entries
     for(int i=0; i<trainingHeaderTiles.size(); i++) {
         layout->removeWidget(trainingHeaderTiles[i]);
         delete trainingHeaderTiles[i];
@@ -20,9 +24,9 @@ void TrainingHeadersWidget::setTiles(QVector<Training::Header> headers)
     trainingHeaderTiles.clear();
 
     for(int i=0; i<headers.size(); i++) {
-        TrainingHeaderTile *tile = new TrainingHeaderTile;
-        tile->setData(headers[i]);
-        addTile(tile);
+        if(i != 0)
+            addHorizontalLine();
+        addTile(new TrainingHeaderTile(headers[i]));
     }
     updateWidget();
 }
@@ -40,6 +44,15 @@ void TrainingHeadersWidget::updateWidget()
 
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     //show();
+}
+
+void TrainingHeadersWidget::addHorizontalLine()
+{
+    QFrame *line;
+    line = new QFrame();
+    line->setFrameShape(QFrame::HLine);
+    line->setFrameShadow(QFrame::Sunken);
+    layout->addWidget(line);
 }
 
 bool compare(Training::Header a, Training::Header b)
