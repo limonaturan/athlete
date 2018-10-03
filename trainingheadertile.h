@@ -18,6 +18,7 @@
 #include <QMouseEvent>
 #include <QPoint>
 #include <trainingmanager.h>
+#include "messageagent.h"
 
 class TrainingHeaderTile : public QFrame
 {
@@ -28,10 +29,13 @@ public:
     TrainingHeaderTile(Training::Header);
     void setData(Training::Header);
     void setActive(bool);
+    void setChecked(bool);
+    int getId();
 
 signals:
     void tileClicked();
     void activeTileChanged();
+
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;

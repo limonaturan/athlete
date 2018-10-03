@@ -49,10 +49,24 @@ void TrainingHeaderTile::setData(Training::Header data)
 
 void TrainingHeaderTile::setActive(bool active)
 {
+    isActive = active;
     if(!active)
         line->setStyleSheet("background-color: rgb(114, 194, 235);");
     else
         line->setStyleSheet("background-color: rgb(40, 240, 120);");
+    TrainingManager::getInstance()->setTrainingActive(this->getId(), active);
+}
+
+void TrainingHeaderTile::setChecked(bool checked)
+{
+    isChecked = checked;
+    line->setVisible(checked);
+    TrainingManager::getInstance()->setTrainingChecked(this->getId(), checked);
+}
+
+int TrainingHeaderTile::getId()
+{
+    return header.id;
 }
 
 void TrainingHeaderTile::mousePressEvent(QMouseEvent *event)
@@ -66,30 +80,27 @@ void TrainingHeaderTile::mouseReleaseEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && scribbling) {
         scribbling = false;
-
-        emit tileClicked();
-
         if(isChecked) {
             if(activeInstance == this) {
-                isChecked = false;
+                this->setChecked(false);
                 this->setActive(false);
-                line->setVisible(false);
+                activeInstance = 0;
             }
             else {
-                activeInstance->setActive(false);
-                activeInstance = this;
+                if(activeInstance)
+                    activeInstance->setActive(false);
                 this->setActive(true);
+                activeInstance = this;
             }
         }
         else {
-            isChecked = true;
-            if(activeInstance) {
+            if(activeInstance)
                 activeInstance->setActive(false);
-            }
-            activeInstance = this;
+            this->setChecked(true);
             this->setActive(true);
-            line->setVisible(true);
+            activeInstance = this;
         }
+        MessageAgent::getInstance()->emitTileClicked();
     }
 }
 

@@ -21,6 +21,9 @@ public:
     void setProfile(UserSettings::profile);
 
     QVector<Training::Header> getHeaders();
+    Training *getTraining(int id);
+    Training::Header getActiveTrainingHeader();
+    QVector<Training::Header> getCheckedTrainingHeaders();
 
     PlotData getSpeedDistanceFastestSectionsAllTime();
 

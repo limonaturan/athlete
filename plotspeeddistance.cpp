@@ -26,10 +26,14 @@ void PlotSpeedDistance::updateGraph()
         this->addGraph();
         this->addGraph();
         this->addGraph();
+        this->addGraph();
+        this->addGraph();
     }
     this->graph(0)->clearData();
     this->graph(1)->clearData();
     this->graph(2)->clearData();
+    this->graph(3)->clearData();
+    this->graph(4)->clearData();
 
     this->graph(0)->setData(x,y);
 
@@ -44,6 +48,24 @@ void PlotSpeedDistance::updateGraph()
         QVector<double> yR = wr.getSpeeds();
         this->graph(2)->setData(xR, yR);
         yMaxWorldRecord = yR[0]*1.1;
+    }
+
+    QVector<Training::Header> checkedTrainings = TrainingManager::getInstance()->getCheckedTrainingHeaders();
+    if(checkedTrainings.size() != 0) {
+        QVector<double> xC, yC;
+        for(int i=0; i<checkedTrainings.size(); i++) {
+            xC.append(checkedTrainings[i].distance/1000.);
+            yC.append(checkedTrainings[i].speed*3.6);
+        }
+        this->graph(3)->setData(xC,yC);
+    }
+
+    Training::Header activeHeader = TrainingManager::getInstance()->getActiveTrainingHeader();
+    if(activeHeader.isValid) {
+        QVector<double> xA, yA;
+        xA.append(activeHeader.distance/1000.);
+        yA.append(activeHeader.speed*3.6);
+        this->graph(4)->setData(xA,yA);
     }
 
     if(yMaxPersonalBest > yMax)
@@ -67,6 +89,18 @@ void PlotSpeedDistance::updateGraph()
     this->graph(2)->setLineStyle(QCPGraph::lsLine);
     this->graph(2)->setPen(penRecords);
     //this->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 6));
+
+    QPen penCheckedTraining;
+    penCheckedTraining.setColor(QColor(114, 194, 235, 255));
+    this->graph(3)->setLineStyle(QCPGraph::lsNone);
+    this->graph(3)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 7));
+    this->graph(3)->setPen(penCheckedTraining);
+
+    QPen penActiveTraining;
+    penActiveTraining.setColor(QColor(40, 240, 120, 255));
+    this->graph(4)->setLineStyle(QCPGraph::lsNone);
+    this->graph(4)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 7));
+    this->graph(4)->setPen(penActiveTraining);
 
     this->xAxis->setLabel("Distance (km)");
     this->yAxis->setLabel("Speed (km/h)");

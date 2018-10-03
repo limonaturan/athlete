@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     plotdata.cpp \
     data.cpp \
     tabspeed.cpp \
-    worldrecords.cpp
+    worldrecords.cpp \
+    messageagent.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -52,6 +53,7 @@ HEADERS  += mainwindow.h \
     plotdata.h \
     data.h \
     tabspeed.h \
-    worldrecords.h
+    worldrecords.h \
+    messageagent.h
 
 FORMS    += mainwindow.ui

@@ -11,6 +11,7 @@
 #include <trainingtabs.h>
 #include "usersettings.h"
 #include "trainingmanager.h"
+#include "messageagent.h"
 
 class CentralWidget : public QWidget
 {
@@ -20,6 +21,7 @@ public:
 
 public slots:
     void onProfileChanged();
+    void updateTabWidget();
 
 private:
     QHBoxLayout * mainLayout;
@@ -28,6 +30,7 @@ private:
     UserSettings *userSettings;
     UserSettings::profile profile;
     TrainingManager *trainingManager;
+    MessageAgent *messageAgent;
 
     void updateCentralWidget();
 };

@@ -29,6 +29,36 @@ QVector<Training::Header> TrainingManager::getHeaders()
     return headers;
 }
 
+Training *TrainingManager::getTraining(int id)
+{
+    for(int i=0; i<trainings.size(); i++) {
+        if(trainings[i].getHeader().id == id)
+            return &trainings[i];
+    }
+    Training *t = new Training();
+    return t;
+}
+
+Training::Header TrainingManager::getActiveTrainingHeader()
+{
+    for(int i=0; i<trainings.size(); i++) {
+        if(trainings[i].isActive())
+            return trainings[i].getHeader();
+    }
+    Training::Header h;
+    return h;
+}
+
+QVector<Training::Header> TrainingManager::getCheckedTrainingHeaders()
+{
+    QVector<Training::Header> th;
+    for(int i=0; i<trainings.size(); i++) {
+        if(trainings[i].isChecked())
+            th.append(trainings[i].getHeader());
+    }
+    return th;
+}
+
 PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()
 {
     PlotData data;
@@ -57,13 +87,12 @@ PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()
 
 void TrainingManager::setTrainingActive(int id, bool active)
 {
-    trainings[id].setActive(active);
-    //TrainingManager::getInstance()->setTrainingActive(id, active);
+    getTraining(id)->setActive(active);
 }
 
 void TrainingManager::setTrainingChecked(int id, bool checked)
 {
-    trainings[id].setChecked(checked);
+    getTraining(id)->setChecked(checked);
 }
 
 void TrainingManager::readAll()

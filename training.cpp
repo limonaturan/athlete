@@ -35,7 +35,7 @@ Training::Header Training::getHeader()
     header.speed = activity.speed;
     header.duration = activity.duration;
     header.rating = activity.rating;
-    header.id = id;
+    header.id = activity.id;
     header.isValid = true;
 
     return header;
@@ -149,12 +149,12 @@ bool Training::isChecked()
 
 void Training::setActive(bool c)
 {
-    checked = c;
+    active = c;
 }
 
 void Training::setChecked(bool a)
 {
-    active = a;
+    checked = a;
 }
 
 Training::Activity Training::readTcxFile(QString filename)

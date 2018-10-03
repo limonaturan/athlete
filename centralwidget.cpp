@@ -7,12 +7,13 @@ CentralWidget::CentralWidget()
     trainingManager = TrainingManager::getInstance();
 
     trainingTabs = new TrainingTabs();
+    messageAgent = MessageAgent::getInstance();
 
     mainLayout->addWidget(trainingScrollArea);
     mainLayout->addWidget(trainingTabs);
 
     onProfileChanged();
-
+    connect(messageAgent, SIGNAL(tileClicked()), this, SLOT(updateTabWidget()));
     setLayout(mainLayout);
 }
 
@@ -23,6 +24,11 @@ void CentralWidget::onProfileChanged()
 
     // TrainingHeadersScrollArea must be updated.
     trainingScrollArea->setTrainingHeaderTiles(trainingManager->getHeaders());
+    trainingTabs->updateTabs();
+}
+
+void CentralWidget::updateTabWidget()
+{
     trainingTabs->updateTabs();
 }
 
