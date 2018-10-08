@@ -14,7 +14,7 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QDebug>
-
+#include "messageagent.h"
 #include "usersettings.h"
 
 

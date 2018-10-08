@@ -32,6 +32,7 @@ private:
     TrainingManager *trainingManager;
     MessageAgent *messageAgent;
 
+
     void updateCentralWidget();
 };
 

@@ -11,6 +11,8 @@
 #include <QFileInfo>
 #include "plotdata.h"
 #include "data.h"
+#include "record.h"
+#include <QDate>
 
 class TrainingManager
 {
@@ -24,6 +26,9 @@ public:
     Training *getTraining(int id);
     Training::Header getActiveTrainingHeader();
     QVector<Training::Header> getCheckedTrainingHeaders();
+    int getNumberOfTrainings();
+    double getTotalDistance();
+    QVector<Record> getRecords();
 
     PlotData getSpeedDistanceFastestSectionsAllTime();
 

@@ -14,4 +14,9 @@ void MessageAgent::emitTileClicked()
     emit tileClicked();
 }
 
+void MessageAgent::emitProfileChanged()
+{
+    emit profileChanged();
+}
+
 MessageAgent::MessageAgent() {}

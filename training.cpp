@@ -137,6 +137,11 @@ QVector<Training::Section> Training::getBestSections()
     return bestSections;
 }
 
+int Training::getYear()
+{
+    return header.dateTime.date().year();
+}
+
 bool Training::isActive()
 {
     return active;

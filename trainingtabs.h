@@ -9,6 +9,7 @@
 #include "plotspeeddistance.h"
 #include "trainingmanager.h"
 #include "tabspeed.h"
+#include "taboverview.h"
 
 class TrainingTabs : public QTabWidget
 {
@@ -22,6 +23,7 @@ public:
 private:
     PlotSpeedDistance *plotSpeedDistance;
     TabSpeed *tabSpeed;
+    TabOverview *tabOverview;
 
 };
 

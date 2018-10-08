@@ -159,6 +159,7 @@ void UserDialog::onButtonChooseClicked()
 {
     userSettings->chooseProfile(comboBoxProfiles->currentIndex());
     emit profileChanged();
+    MessageAgent::getInstance()->emitProfileChanged();
     close();
 }
 

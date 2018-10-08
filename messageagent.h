@@ -11,9 +11,11 @@ public:
     static MessageAgent *getInstance();
 
     void emitTileClicked();
+    void emitProfileChanged();
 
 signals:
     void tileClicked();
+    void profileChanged();
 
 private:
     MessageAgent();

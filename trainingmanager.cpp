@@ -11,7 +11,8 @@ TrainingManager* TrainingManager::getInstance()
 
 TrainingManager::TrainingManager()
 {
-
+    UserSettings::profile profile = UserSettings::getInstance()->getCurrentProfile();
+    setProfile(profile);
 }
 
 void TrainingManager::setProfile(UserSettings::profile profile)
@@ -57,6 +58,60 @@ QVector<Training::Header> TrainingManager::getCheckedTrainingHeaders()
             th.append(trainings[i].getHeader());
     }
     return th;
+}
+
+int TrainingManager::getNumberOfTrainings()
+{
+    return trainings.size();
+}
+
+double TrainingManager::getTotalDistance()
+{
+    double distance = 0.;
+    for(int i=0; i<trainings.size(); i++) {
+        distance += trainings[i].getHeader().distance;
+    }
+    return distance;
+}
+
+QVector<Record> TrainingManager::getRecords()
+{
+    QVector<Record> records;
+    WorldRecords WR = WorldRecords();
+    QVector<WorldRecord> worldRecords = WR.getRecords();
+    int currentYear = QDate::currentDate().year();
+    bool noFurtherDistance = false;
+
+    for(int i=0; i<worldRecords.size(); i++) {
+        Record r;
+        bool distanceAccomplished = false;
+        if(!noFurtherDistance) {
+            for(int k=0; k<trainings.size(); k++) {
+                QVector<Training::Section> bestSections = trainings[k].getBestSections();
+                for(int m=0; m<bestSections.size(); m++) {
+                    if(bestSections[m].distance == worldRecords[i].distance) {
+                        int trainingYear = trainings[k].getYear();
+                        if(!r.personalBestDuration || r.personalBestDuration > bestSections[m].duration) {
+                            r.personalBestDuration = bestSections[m].duration;
+                            distanceAccomplished = true;
+                        }
+                        if(currentYear == trainingYear && (!r.yearBestDuration || r.yearBestDuration > bestSections[m].duration)) {
+                            r.yearBestDuration = bestSections[m].duration;
+                            distanceAccomplished = true;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        r.distance = worldRecords[i].distance;
+        r.worldRecordDuration = worldRecords[i].duration;
+        records.append(r);
+        if(!distanceAccomplished) {
+            noFurtherDistance = true;
+        }
+    }
+    return records;
 }
 
 PlotData TrainingManager::getSpeedDistanceFastestSectionsAllTime()

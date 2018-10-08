@@ -4,6 +4,8 @@ PlotSpeedDistance::PlotSpeedDistance()
 {
     trainingManager = TrainingManager::getInstance();
     wr = WorldRecords();
+
+    setBackground(QBrush(palette().color(QWidget::backgroundRole())));
     //connect(trainingManager, SIGNAL(trainingsChanged()), this, SLOT(onTrainingsChanged()));
 }
 

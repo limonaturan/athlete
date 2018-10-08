@@ -32,7 +32,13 @@ SOURCES += main.cpp\
     data.cpp \
     tabspeed.cpp \
     worldrecords.cpp \
-    messageagent.cpp
+    messageagent.cpp \
+    taboverview.cpp \
+    profiletile.cpp \
+    trainingdetailtile.cpp \
+    trainingssummarytile.cpp \
+    record.cpp \
+    latestachievementstile.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -54,6 +60,12 @@ HEADERS  += mainwindow.h \
     data.h \
     tabspeed.h \
     worldrecords.h \
-    messageagent.h
+    messageagent.h \
+    taboverview.h \
+    profiletile.h \
+    trainingdetailtile.h \
+    trainingssummarytile.h \
+    record.h \
+    latestachievementstile.h
 
 FORMS    += mainwindow.ui

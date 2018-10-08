@@ -76,6 +76,7 @@ public:
 
     Header getHeader();
     QVector<Section> getBestSections();
+    int getYear();
     bool isActive();
     bool isChecked();
 
